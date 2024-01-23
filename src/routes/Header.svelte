@@ -1,10 +1,14 @@
 <script>
+// @ts-nocheck
+
 	import { page } from '$app/stores';
 	import logo from '$lib/images/svelte-logo.svg';
 	import github from '$lib/images/github.svg';
+	import { Avatar } from 'svelte-ux';
+	import MdiAccount from '~icons/mdi/account'
 </script>
 
-<header>
+<header class="mt-2">
 	<div class="corner">
 		<a href="https://kit.svelte.dev">
 			<img src={logo} alt="SvelteKit" />
@@ -26,15 +30,14 @@
 				<a href="/sverdle">Sverdle</a>
 			</li>
 		</ul>
-		<svg viewBox="0 0 2 3" aria-hidden="true">
-			<path d="M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z" />
-		</svg>
+		
+		  
 	</nav>
 
 	<div class="corner">
-		<a href="https://github.com/sveltejs/kit">
-			<img src={github} alt="GitHub" />
-		</a>
+		<Avatar class="bg-accent-500 text-white">
+			<MdiAccount color='white'/>
+			</Avatar>
 	</div>
 </header>
 
