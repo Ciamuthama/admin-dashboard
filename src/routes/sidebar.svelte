@@ -1,40 +1,40 @@
-<script>
-    import Dashboard from "virtual:icons/mdi/view-dashboard-edit"
-    import Chart from "virtual:icons/mdi/chart-areaspline"
-    import Table from "virtual:icons/mdi/table"
-    import From from "virtual:icons/mdi/format-line-style"
-    import SpreadSheet from 'virtual:icons/mdi-table-large'
-    import Kanban from "virtual:icons/mdi-view-column"
-    import Pivot from "virtual:icons/mdi-layers"
-    import File from "virtual:icons/mdi-folder-star"
+<script lang="ts">
+//     import Dashboard from "~icons/mdi/view-dashboard-edit"
+//     //  import Chart from "~icons/mdi/chart-areaspline"
+//     // import Table from "~icons/mdi/table"
+//     //  import From from "~icons/mdi/format-line-style"
+// //     import SpreadSheet from '~icons/mdi-table-large'
+// //     import Kanban from "~icons/mdi-view-column"
+//      import Pivot from "~icons/mdi-layers"
+// //     import File from "~icons/mdi-folder"
 </script>
 
-<main class="bg-gray-500">
-    <h1>ADMIN APP</h1>
+<main class="bg-gray-300 h-screen">
+    <!-- <h1>ADMIN APP</h1> -->
     <ul>
         <li>
-            <Dashboard color='gray'/>
+            <a href="#">Dashboard</a>
         </li>
         <li>
-            <Chart color='gray'/>
+           <a href="/chart"> Chart</a>
         </li>
         <li>
-            <Table color='gray'/>
+           <a href="#"> Table</a>
         </li>
         <li>
-            <From color="gray"/>
+           <a href="/form"> Form</a>
         </li>
         <li>
-            <SpreadSheet color='gray'/>
+          <a href="#"> SpreadSheet</a>
         </li>
         <li>
-            <Kanban color="gray"/>
+            <a href="#">Kanban</a>
+        </li> 
+        <li>
+           <a href="#"> Pivot</a>
         </li>
         <li>
-            <Pivot color='gray'/>
-        </li>
-        <li>
-            <File color='gray'/>
+           <a href="#">File</a>
         </li>
     </ul>
 </main>

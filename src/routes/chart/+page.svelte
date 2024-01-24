@@ -1,19 +1,18 @@
 <script lang="ts">
-import { Chart, Svg,Pie } from 'layerchart';
-
-
-	function scaleOrdinal(): any {
-		throw new Error('Function not implemented.');
-	}
+import PointChart from './pointChart.svelte'
+import PieChart from './pieChart.svelte'
+import LineChart from './lineChart.svelte'
 </script>
-<main class="grid grid-flow-col-dense">
-	<div>
-		
-		  
-	</div>
 
-	<div>
-		
-		  
+<main>
+	<div class="mb-5">
+		<PieChart/>
 	</div>
+	<div class="mb-5">
+		<PointChart/>
+	</div>
+	<div class="mb-3">
+		<LineChart/>
+	</div>
+	
 </main>

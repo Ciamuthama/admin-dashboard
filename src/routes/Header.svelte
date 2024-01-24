@@ -4,11 +4,11 @@
 	import { page } from '$app/stores';
 	import logo from '$lib/images/svelte-logo.svg';
 	import github from '$lib/images/github.svg';
-	import { Avatar } from 'svelte-ux';
 	import MdiAccount from '~icons/mdi/account'
-</script>
+	import avatar from '$lib/images/morgan_yu.jpg'
+	</script>
 
-<header class="mt-2">
+<header class="py-3 bg-gray-300">
 	<div class="corner">
 		<a href="https://kit.svelte.dev">
 			<img src={logo} alt="SvelteKit" />
@@ -16,28 +16,32 @@
 	</div>
 
 	<nav>
-		<svg viewBox="0 0 2 3" aria-hidden="true">
+		<!-- <svg viewBox="0 0 2 3" aria-hidden="true">
 			<path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" />
-		</svg>
+		</svg> -->
 		<ul>
 			<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
-				<a href="/">Home</a>
+				<a href="/form" class="text-black">Home</a>
 			</li>
 			<li aria-current={$page.url.pathname === '/about' ? 'page' : undefined}>
-				<a href="/about">About</a>
+				<a href="/about" class="text-black">About</a>
 			</li>
 			<li aria-current={$page.url.pathname.startsWith('/sverdle') ? 'page' : undefined}>
-				<a href="/sverdle">Sverdle</a>
+				<a href="/sverdle" class="text-black">Sverdle</a>
 			</li>
 		</ul>
 		
-		  
+		<!-- <svg viewBox="0 0 2 3" aria-hidden="true">
+			<path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" />
+		</svg> -->
 	</nav>
 
 	<div class="corner">
-		<Avatar class="bg-accent-500 text-white">
-			<MdiAccount color='white'/>
-			</Avatar>
+		<div class="avatar online">
+			<div class="rounded-full">
+			  <img src={avatar} alt="morgan yo" />
+			</div>
+		  </div>
 	</div>
 </header>
 
@@ -58,7 +62,7 @@
 		justify-content: center;
 		width: 100%;
 		height: 100%;
-	}
+		}
 
 	.corner img {
 		width: 2em;
@@ -69,7 +73,7 @@
 	nav {
 		display: flex;
 		justify-content: center;
-		--background: rgba(255, 255, 255, 0.7);
+		
 	}
 
 	svg {

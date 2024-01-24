@@ -1,26 +1,25 @@
 <script>
-	import { Chart, Svg, Axis, Spline, Highlight, TooltipItem, Text } from 'layerchart';
+	import { Chart, Svg, Axis, Spline, Highlight, TooltipItem, Text, Tooltip } from 'layerchart';
 	import { scaleOrdinal, scaleTime } from 'd3-scale';
+	import { flatGroup } from 'd3-array';
 	import { formatDate, PeriodType } from 'svelte-ux/utils/date';
+	import { format } from 'date-fns';
+	import ChartData from '../../data/chart.json';
 
-	const multiSeriesFlatData = [
-		{ date: new Date('2022-01-01'), value: 10, fruit: 'apple' },
-		{ date: new Date('2022-01-02'), value: 15, fruit: 'banana' }
-		// Add more data points as needed
-	];
 
-	const dataByFruit = Object.entries(
-		multiSeriesFlatData.reduce((acc, row) => {
-			if (!acc[row.fruit]) acc[row.fruit] = [];
-			acc[row.fruit].push(row);
-			return acc;
-		}, {})
-	);
+	
+
+	const multiSeriesFlatData = ChartData;
+
+	const dataByFruit =
+		flatGroup(multiSeriesFlatData, (d) => d.fruit)
+	
 
 	const fruitColors = {
-		apple: 'red',
-		banana: 'yellow'
-		// Add more fruit colors as needed
+		apples: 'red',
+		bananas: 'yellow',
+		oranges: 'oranges',
+		
 	};
 </script>
 
@@ -46,7 +45,7 @@
 				<Axis placement="bottom" format={(d) => formatDate(d, PeriodType.Day, 'short')} rule />
 				{#each dataByFruit as [fruit, data]}
 					{@const color = rScale(fruit)}
-					<Spline {...data} class="stroke-2" stroke={color}>
+					<Spline {data} class="stroke-2" stroke={color}>
 						<svelte:fragment slot="end">
 							<circle r={4} fill={color} />
 							<Text
@@ -62,7 +61,7 @@
 				{/each}
 				<Highlight points lines />
 			</Svg>
-			<Tooltip header={(d) => formatDate(d.date, 'eee, MMMM do')} let:data>
+			<Tooltip header={(data) => format(data.date, 'eee, MMMM do')} let:data>
 				<TooltipItem label={data.fruit} value={data.value} />
 			</Tooltip>
 		</Chart>

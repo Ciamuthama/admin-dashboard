@@ -7,16 +7,20 @@ module.exports = {
 		'./node_modules/svelte-ux/**/*.{svelte,js}',
 		'./node_modules/layerchart/**/*.{svelte,js}'
 	],
+
 	theme: {
 		extend: {
 			colors: {
 				accent: colors.blue,
-        primary:colors.indigo,
-			}
-		}
+				primary:colors.indigo,
+			},
+		},
 	},
 	variants: {
 		extend: {}
 	},
-	plugins: [require('svelte-ux/plugins/tailwind.cjs')]
+	plugins: [require('svelte-ux/plugins/tailwind.cjs'),require("daisyui")],
+	daisyui: {
+		themes:['corporate'],
+	  },
 };

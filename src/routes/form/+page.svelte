@@ -1,103 +1,78 @@
-<script>
-	import {
-		Input,
-		SelectField,
-		DatePickerField,
-		Radio,
-		TextField,
-		autoFocus,
-		autoHeight,
-		blurOnEscape,
-		selectOnFocus,
-		debounceEvent
-	} from 'svelte-ux';
-	import mdiCalendar from 'virtual:icons//mdi/calender';
-	
-  import { onMount } from 'svelte';
+<script lang="ts">
+	import { Form, TextField, Button } from 'svelte-ux';
+	import { onMount } from 'svelte';
+	import { z } from 'zod';
 
-  let data = {
-    firstName: '',
-    lastName: '',
-    address: '',
-    dateOfBirth: '',
-    email: '',
-    phone: '',
-    comment: '',
-    agree: 1
-  };
+	// export let data
 
-  onMount(() => {
-    const savedData = localStorage.getItem('formData');
-    if (savedData) {
-      data = JSON.parse(savedData);
-    }
-  });
+	// function handleInputChange() {
+	// 	data;
+	// }
 
-  function handleInputChange(event) {
-    const { name, value } = event.target;
-    data[name] = value;
-  }
-
-  function saveData() {
-    localStorage.setItem('formData', JSON.stringify(data));
-  }
-
-  async function sendData() {
-  try {
-    const response = await fetch('https://fake-database-endpoint.com', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    });
-
-    if (response.ok) {
-      console.log('Data sent successfully');
-    } else {
-      console.error('Failed to send data');
-    }
-  } catch (error) {
-    console.error('Error sending data:', error);
-  }
+function handleSubmit() {
+  localStorage.setItem('data', JSON.stringify(data));
 }
 
-function saveDataForm() {
-  sendData();
-}
+
+	// function saveDataForm() {
+	// 	data
+	// }
+
+	// let group: number | undefined = undefined;
+	let data = {
+		name: 'Sean Lynch'
+	};
+
+	onMount(() => {
+		const savedData = localStorage.getItem('data');
+		if (savedData) {
+			data = JSON.parse(savedData);
+		}
+	});
+
+	// const schema = z.object({
+	// 	firstName: z.string().nonempty('First name is required').max(10),
+	// 	lastName: z.string().nonempty('Last name is required').max(10)
+	// });
+
+	// let schemaData = {
+	// 	firstName: '',
+	// 	lastName: '',
+	// };
 </script>
 
-
-<main>
-	<form on:change={saveDataForm} method="post">
-	<div>
-		<SelectField {options} on:change={(e) => console.log('on:change', e.detail)} />
-		<SelectField {options} on:change={(e) => console.log('on:change', e.detail)} />
-		<DatePickerField label="Date of Birth" icon={mdiCalendar} />
-		<Radio name="label" bind:group value={1}>Agree</Radio>
-		<Radio name="label" bind:group value={2}>Disagree</Radio>
-		<TextField label="Comment" multiline />
-	</div>
-	<div>
-		<div class="grid grid-flow-col gap-2">
-			<main>
-				<div>
-					<TextField type="text" placeholder="First Name" bind:value={data.firstName} on:input={handleInputChange} />
-					<TextField type="text" placeholder="Last Name" bind:value={data.lastName} on:input={handleInputChange} />
-					<TextField type="text" placeholder="Address" bind:value={data.address} on:input={handleInputChange} />
-					<DatePickerField label="Date of Birth" icon={mdiCalendar} bind:value={data.dateOfBirth} on:change={handleInputChange} />
-					<SelectField {options} on:change={handleInputChange} />
-					<TextField type="email" placeholder="Email Address" bind:value={data.email} on:input={handleInputChange} />
-					<TextField type="integer" placeholder="Phone" bind:value={data.phone} on:input={handleInputChange} />
-					<Radio name="label" bind:group={data.agree} value={1} on:change={handleInputChange}>Agree</Radio>
-					<Radio name="label" bind:group={data.agree} value={2} on:change={handleInputChange}>Disagree</Radio>
-      <TextField label="Comment" multiline bind:value={data.comment} on:input={handleInputChange} />
-    </div>
-    <div>
-      
-    </div>
-    <button on:click={saveData}>Save</button>
-  		</div>
-	</div>
-	</form>
+<main class="mx-3 mt-9">
+	<Form
+		
+		on:change={(e) => (data = e.detail)}
+		on:submit={handleSubmit}
+		let:draft
+		let:state
+		let:errors
+	>
+		<div class="grid gap-2">
+			<TextField
+				label="First Name"
+				value={draft.firstName}
+				on:change={(e) => {
+					draft.firstName = e.detail.value;
+				}}
+				error={errors.firstName}
+			/>
+			<TextField
+				label="Last Name"
+				value={draft.lastName}
+				on:change={(e) => {
+					draft.lastName = e.detail.value;
+				}}
+				error={errors.lastName}
+				required
+			/>
+		</div>
+		<Button type="submit">Save</Button>
+		<Button type="reset">Cancel</Button>
+		<div class="mt-2">
+		<!-- <div>{JSON.stringify(state)}</div> -->
+		</div>
+	</Form>
 </main>
